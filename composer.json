@@ -2,6 +2,7 @@
   "name": "gacela-project/phpstan-extension",
   "description": "PHPStan rule for projects using Gacela",
   "type": "phpstan-extension",
+  "license": "MIT",
   "require": {
     "php": ">=7.4, <8.3",
     "gacela-project/gacela": ">=0.1, <1"
@@ -11,7 +12,9 @@
     "phpunit/phpunit": "^9.5",
     "friendsofphp/php-cs-fixer": "^3.13"
   },
-  "license": "MIT",
+  "suggest": {
+    "gacela-project/gacela": "Gacela helps you separate your project into modules, focusing on the application/infrastructure layer, decoupled from your domain."
+  },
   "autoload": {
     "psr-4": {
       "GacelaProject\\PhpstanExtension\\": "src/"

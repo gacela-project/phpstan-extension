@@ -1,6 +1,7 @@
 # Gacela PHPStan extension
 
-This is a PHPStan extension for Gacela Framework. This enforces module boundaries. 
+This is a PHPStan extension for Gacela Framework. This enforces module boundaries.
+
 See [main Gacela project](https://github.com/gacela-project/gacela) for more information.
 
 ## Installation
