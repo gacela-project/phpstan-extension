@@ -46,7 +46,6 @@
       "./vendor/bin/phpunit"
     ],
     "static-clear-cache": [
-      "vendor/bin/psalm --clear-cache",
       "vendor/bin/phpstan clear-result-cache"
     ],
     "phpstan": "./vendor/bin/phpstan analyze",
