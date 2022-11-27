@@ -17,7 +17,8 @@ services:
             - phpstan.rules.rule
 
 parameters:
-    excludedNamespaces: []
+    gacela:
+        excludedNamespaces: []
 
 parametersSchema:
     gacela: structure([
