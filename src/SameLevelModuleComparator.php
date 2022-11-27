@@ -16,6 +16,15 @@ class SameLevelModuleComparator implements ModuleComparator
         $this->modulesNamespace = rtrim($modulesNamespace, '\\') . '\\';
     }
 
+    public function isInModule(?string $namespace): bool
+    {
+        if ($namespace === null) {
+            return false;
+        }
+
+        return $this->isModulesNamespace($namespace);
+    }
+
     public function isSameModule(?string $namespaceA, ?string $namespaceB): bool
     {
         if ($namespaceA === $namespaceB) {

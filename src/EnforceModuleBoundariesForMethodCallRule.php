@@ -42,20 +42,25 @@ final class EnforceModuleBoundariesForMethodCallRule implements Rule
             return [];
         }
 
-        // 2. Is this a call to code in the same module. If yes then exit.
-        // 3. Or is this a call to code in an excluded namespace. If yes then exit.
         $namespaceOfCallingCode = $scope->getNamespace();
         foreach ($type->getReferencedClasses() as $referencedClass) {
+            // 2. Is this a call to code in the same module. If yes then exit.
             if ($this->moduleComparator->isSameModule($namespaceOfCallingCode, $referencedClass)) {
                 return [];
             }
 
+            // 3. Or is this a call to code in an excluded namespace. If yes then exit.
             if ($this->excludedNamespaceChecker->isExcludedNamespace($referencedClass)) {
+                return [];
+            }
+
+            // 4. Is the code from outside the app (core or vendor)? If yes then exit.
+            if (!$this->moduleComparator->isInModule($referencedClass)) {
                 return [];
             }
         }
 
-        // 4. Raise an error.
+        // 5. Raise an error.
         return [
             RuleErrorBuilder::message('Method call to a different module is not allowed.')->build(),
         ];

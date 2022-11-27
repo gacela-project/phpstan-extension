@@ -46,43 +46,43 @@ class SameLevelModuleComparatorTest extends TestCase
 
         yield [
             'Foo/bar',
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Domain',
+            'App\ModuleA\Domain',
             false,
         ];
 
         yield [
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Domain',
+            'App\ModuleA\Domain',
             'Foo/bar',
             false,
         ];
 
         yield [
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Infrastructure',
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Domain',
+            'App\ModuleA\Infrastructure',
+            'App\ModuleA\Domain',
             true,
         ];
 
         yield [
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Infrastructure\Foo',
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA',
+            'App\ModuleA\Infrastructure\Foo',
+            'App\ModuleA',
             true,
         ];
 
         yield [
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA',
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Infrastructure',
+            'App\ModuleA',
+            'App\ModuleA\Infrastructure',
             true,
         ];
 
         yield [
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Infrastructure',
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleB\Infrastructure',
+            'App\ModuleA\Infrastructure',
+            'App\ModuleB\Infrastructure',
             false,
         ];
 
         yield [
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Infrastructure\Person',
-            'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\SomeClass',
+            'App\ModuleA\Infrastructure\Person',
+            'App\ModuleA\SomeClass',
             true,
         ];
     }
@@ -92,16 +92,37 @@ class SameLevelModuleComparatorTest extends TestCase
      */
     public function test_module_comparator(?string $namespaceA, ?string $namespaceB, bool $expected): void
     {
-        $moduleComparator = new SameLevelModuleComparator('GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\\');
+        $moduleComparator = new SameLevelModuleComparator('App\\');
         $this->assertSame($expected, $moduleComparator->isSameModule($namespaceA, $namespaceB));
     }
 
     /**
      * @dataProvider dataProvider
      */
-    public function test_module_comparator_without_trailing_slash(?string $namespaceA, ?string $namespaceB, bool $expected): void
-    {
-        $moduleComparator = new SameLevelModuleComparator('GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures');
+    public function test_module_comparator_without_trailing_slash(
+        ?string $namespaceA,
+        ?string $namespaceB,
+        bool $expected
+    ): void {
+        $moduleComparator = new SameLevelModuleComparator('App');
         $this->assertSame($expected, $moduleComparator->isSameModule($namespaceA, $namespaceB));
+    }
+
+    public function test_is_not_in_module(): void
+    {
+        $moduleComparator = new SameLevelModuleComparator('App');
+        $this->assertFalse($moduleComparator->isInModule('PDO'));
+    }
+
+    public function test_is_not_in_module_when_null(): void
+    {
+        $moduleComparator = new SameLevelModuleComparator('App');
+        $this->assertFalse($moduleComparator->isInModule(null));
+    }
+
+    public function test_is_in_module(): void
+    {
+        $moduleComparator = new SameLevelModuleComparator('App\\');
+        $this->assertTrue($moduleComparator->isInModule('App\\MyClass'));
     }
 }

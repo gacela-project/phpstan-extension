@@ -48,6 +48,18 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
             ]
         );
     }
+
+    public function test_method_call_to_code_from_vendor(): void
+    {
+        $this->analyse(
+            [
+                __DIR__ . '/Fixtures/ModuleA/Infrastructure/PersonRepository.php',
+            ],
+            [
+            ]
+        );
+    }
+
     protected function getRule(): Rule
     {
         return new EnforceModuleBoundariesForMethodCallRule(
