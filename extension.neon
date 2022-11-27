@@ -2,7 +2,7 @@ services:
     -
         class: GacelaProject\PhpstanExtension\SameLevelModuleComparator
         arguments:
-            modulesNamespace: %gacela.sameLevelModulesNamespace%
+            modulesNamespace: %gacela.modulesNamespace%
 
     -
         class: GacelaProject\PhpstanExtension\ExcludedNamespaceChecker
@@ -16,9 +16,11 @@ services:
         tags:
             - phpstan.rules.rule
 
+parameters:
+    excludedNamespaces: []
 
 parametersSchema:
     gacela: structure([
-        sameLevelModulesNamespace: string()
+        modulesNamespace: string()
         excludedNamespaces: listOf(string())
     ])

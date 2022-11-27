@@ -18,15 +18,15 @@ To configure this PHPStan extension you need 2 things.
 It is assumed that all your modules are under the same namespace. 
 Assume the namespaces for your modules are:
 
-- `Acme\Modules\ModuleA`
-- `Acme\Modules\ModuleB` 
+- `App\Modules\ModuleA`
+- `App\Modules\ModuleB` 
 
-The base namespace for your modules is `Acme\Modules`.
+The base namespace for your modules is `App\Modules`.
 
-#### Excluded namespaces
+#### Excluded namespaces (Optional)
 
-If you have namespace that hold code that can be used by any module (e.g. `Acme\Shared`), 
-then you need to add them to `excludedNamespaces`
+If you have namespace that hold code that can be used by any module (e.g. `App\Shared`), 
+then you need to add them to `excludedNamespaces`. Default: `[]`.
 
 
 ### Update PHPStan configuration
@@ -36,21 +36,36 @@ Update your project's `phpstan.neon` file:
 ```yaml
 parameters:
     gacela:
-        sameLevelModulesNamespace: <base module namespace>
-        excludedNamespaces: <excluded namespaces>
+        modulesNamespace: <base module namespace>
+        excludedNamespaces:
+            - excluded
+            - namespaces
 
 includes:
     - vendor/gacela-project/phpstan-extension/extension.neon
 ```
 
-E.g. 
+### Examples
+
+#### Example without excludedNamespaces
 
 ```yaml
 parameters:
     gacela:
-        sameLevelModulesNamespace: Acme\Modules
+        modulesNamespace: App\Modules
+
+includes:
+    - vendor/gacela-project/phpstan-extension/extension.neon
+```
+
+#### Full example
+
+```yaml
+parameters:
+    gacela:
+        modulesNamespace: App\Modules
         excludedNamespaces: 
-            - Acme\Shared
+            - App\Shared
 
 includes:
     - vendor/gacela-project/phpstan-extension/extension.neon
