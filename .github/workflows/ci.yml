@@ -70,7 +70,7 @@ jobs:
         run: ./vendor/bin/phpstan analyze -c phpstan.neon src
 
   tests:
-    name: Tests on PHP ${{ matrix.php }}
+    name: Tests on PHP ${{ matrix.php }} - ${{ matrix.dependencies }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
