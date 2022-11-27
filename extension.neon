@@ -1,0 +1,24 @@
+services:
+    -
+        class: GacelaProject\PhpstanExtension\SameLevelModuleComparator
+        arguments:
+            modulesNamespace: %gacela.sameLevelModulesNamespace%
+
+    -
+        class: GacelaProject\PhpstanExtension\ExcludedNamespaceChecker
+        arguments:
+            excludedNamespaces: %gacela.excludedNamespaces%
+
+    -
+        class: GacelaProject\PhpstanExtension\EnforceModuleBoundariesForMethodCallRule
+        arguments:
+            moduleComparator: @GacelaProject\PhpstanExtension\SameLevelModuleComparator
+        tags:
+            - phpstan.rules.rule
+
+
+parametersSchema:
+    gacela: structure([
+        sameLevelModulesNamespace: string()
+        excludedNamespaces: listOf(string())
+    ])
