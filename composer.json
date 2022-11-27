@@ -1,0 +1,56 @@
+{
+  "name": "gacela-project/phpstan-extension",
+  "description": "PHPStan rule for projects using Gacela",
+  "type": "phpstan-extension",
+  "require": {
+    "php": ">=7.4, <8.3",
+    "gacela-project/gacela": "^0.32.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.9",
+    "phpunit/phpunit": "^9.5",
+    "friendsofphp/php-cs-fixer": "^3.13"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "GacelaProject\\PhpstanExtension\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "GacelaProject\\PhpstanExtension\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Dave Liddament",
+      "email": "dave@lampbristol.com"
+    }
+  ],
+  "scripts": {
+    "ctal": [
+      "@static-clear-cache",
+      "@csfix",
+      "@test-all"
+    ],
+    "test-all": [
+      "@quality",
+      "@phpunit"
+    ],
+    "quality": [
+      "@csrun",
+      "@phpstan"
+    ],
+    "phpunit": [
+      "./vendor/bin/phpunit"
+    ],
+    "static-clear-cache": [
+      "vendor/bin/psalm --clear-cache",
+      "vendor/bin/phpstan clear-result-cache"
+    ],
+    "phpstan": "./vendor/bin/phpstan analyze",
+    "csfix": "./vendor/bin/php-cs-fixer fix",
+    "csrun": "./vendor/bin/php-cs-fixer fix --dry-run"
+  }
+}
