@@ -6,7 +6,7 @@ namespace GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodC
 
 use Gacela\Framework\AbstractFacade;
 
-class Facade extends AbstractFacade
+class ModuleBFacade extends AbstractFacade
 {
     public function aMethod(): void
     {
