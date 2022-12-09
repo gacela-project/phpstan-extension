@@ -10,7 +10,9 @@
   "require-dev": {
     "phpstan/phpstan": "^1.9",
     "phpunit/phpunit": "^9.5",
-    "friendsofphp/php-cs-fixer": "^3.13"
+    "friendsofphp/php-cs-fixer": "^3.13",
+    "vimeo/psalm": "^5.1",
+    "psalm/plugin-phpunit": "^0.18.4"
   },
   "suggest": {
     "gacela-project/gacela": "Gacela helps you separate your project into modules, focusing on the application/infrastructure layer, decoupled from your domain."
@@ -47,14 +49,17 @@
     ],
     "quality": [
       "@csrun",
+      "@psalm",
       "@phpstan"
     ],
     "phpunit": [
       "./vendor/bin/phpunit"
     ],
     "static-clear-cache": [
+      "vendor/bin/psalm --clear-cache",
       "vendor/bin/phpstan clear-result-cache"
     ],
+    "psalm": "./vendor/bin/psalm",
     "phpstan": "./vendor/bin/phpstan analyze",
     "csfix": "./vendor/bin/php-cs-fixer fix",
     "csrun": "./vendor/bin/php-cs-fixer fix --dry-run"

@@ -32,6 +32,8 @@ final class EnforceModuleBoundariesForMethodCallRule implements Rule
 
     /**
      * @param \PhpParser\Node\Expr\MethodCall $node
+     *
+     * @return list<\PHPStan\Rules\RuleError>
      */
     public function processNode(Node $node, Scope $scope): array
     {
