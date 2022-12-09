@@ -37,32 +37,35 @@ final class EnforceModuleBoundariesForMethodCallRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        // 1. Is the object we are calling a facade? If yes then exit.
         $type = $scope->getType($node->var);
         $facadeObjectType = new ObjectType(AbstractFacade::class);
+        // Is the object we are calling a facade? If yes then exit.
         if ($facadeObjectType->isSuperTypeOf($type)->yes()) {
             return [];
         }
 
         $namespaceOfCallingCode = $scope->getNamespace();
         foreach ($type->getReferencedClasses() as $referencedClass) {
-            // 2. Is this a call to code in the same module. If yes then exit.
+            if (strpos($referencedClass, 'FacadeInterface') !== false) {
+                return [];
+            }
+
+            // Is this a call to code in the same module. If yes then exit.
             if ($this->moduleComparator->isSameModule($namespaceOfCallingCode, $referencedClass)) {
                 return [];
             }
 
-            // 3. Or is this a call to code in an excluded namespace. If yes then exit.
+            // Is this a call to code in an excluded namespace. If yes then exit.
             if ($this->excludedNamespaceChecker->isExcludedNamespace($referencedClass)) {
                 return [];
             }
 
-            // 4. Is the code from outside the app (core or vendor)? If yes then exit.
+            // Is the code from outside the app (core or vendor)? If yes then exit.
             if (!$this->moduleComparator->isInModule($referencedClass)) {
                 return [];
             }
         }
 
-        // 5. Raise an error.
         return [
             RuleErrorBuilder::message('Method call to a different module is not allowed.')->build(),
         ];

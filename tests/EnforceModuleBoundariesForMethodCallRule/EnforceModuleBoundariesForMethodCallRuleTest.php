@@ -60,6 +60,17 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
         );
     }
 
+    public function test_allow_using_facade_interface_from_other_modules(): void
+    {
+        $this->analyse(
+            [
+                __DIR__ . '/Fixtures/ModuleA/Domain/Person.php',
+            ],
+            [
+            ]
+        );
+    }
+
     protected function getRule(): Rule
     {
         return new EnforceModuleBoundariesForMethodCallRule(
