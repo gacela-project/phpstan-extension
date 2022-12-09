@@ -35,15 +35,15 @@ then you need to add them to `excludedNamespaces`. Default: `[]`.
 Update your project's `phpstan.neon` file:
 
 ```yaml
+includes:
+  - vendor/gacela-project/phpstan-extension/extension.neon
+
 parameters:
     gacela:
         modulesNamespace: <base module namespace>
         excludedNamespaces:
             - excluded
             - namespaces
-
-includes:
-    - vendor/gacela-project/phpstan-extension/extension.neon
 ```
 
 ### Examples
@@ -51,27 +51,26 @@ includes:
 #### Example without excludedNamespaces
 
 ```yaml
+includes:
+  - vendor/gacela-project/phpstan-extension/extension.neon
+
 parameters:
     gacela:
         modulesNamespace: App\Modules
-
-includes:
-    - vendor/gacela-project/phpstan-extension/extension.neon
 ```
 
 #### Full example
 
 ```yaml
+includes:
+  - vendor/gacela-project/phpstan-extension/extension.neon
+
 parameters:
     gacela:
         modulesNamespace: App\Modules
         excludedNamespaces: 
             - App\Shared
-
-includes:
-    - vendor/gacela-project/phpstan-extension/extension.neon
 ```
-
 
 ## Usage
 
