@@ -66,8 +66,14 @@ final class EnforceModuleBoundariesForMethodCallRule implements Rule
             }
         }
 
+        $message = sprintf(
+            'Method call to a different module is not allowed. Calling:%s, RefClasses:%s',
+            $namespaceOfCallingCode ?? 'null',
+            implode(',', $type->getReferencedClasses())
+        );
+
         return [
-            RuleErrorBuilder::message('Method call to a different module is not allowed.')->build(),
+            RuleErrorBuilder::message($message)->build(),
         ];
     }
 }
