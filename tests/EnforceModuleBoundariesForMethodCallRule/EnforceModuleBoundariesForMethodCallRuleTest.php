@@ -50,6 +50,17 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
         );
     }
 
+    public function test_method_call_to_excluded_namespace_from_calling_code(): void
+    {
+        $this->analyse(
+            [
+                __DIR__ . '/Fixtures/Tests/ModuleA/Domain/PersonTest.php',
+            ],
+            [
+            ]
+        );
+    }
+
     public function test_method_call_to_code_from_vendor(): void
     {
         $this->analyse(
@@ -78,6 +89,7 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
             new SameLevelModuleComparator("GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures"),
             new ExcludedNamespaceChecker([
                 'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\Common',
+                'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\Tests',
             ])
         );
     }

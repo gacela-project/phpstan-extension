@@ -45,22 +45,23 @@ final class EnforceModuleBoundariesForMethodCallRule implements Rule
         }
 
         $namespaceOfCallingCode = $scope->getNamespace();
+        if ($this->excludedNamespaceChecker->isExcludedNamespace($namespaceOfCallingCode)) {
+            return [];
+        }
+
         foreach ($type->getReferencedClasses() as $referencedClass) {
             if (strpos($referencedClass, 'FacadeInterface') !== false) {
                 return [];
             }
 
-            // Is this a call to code in the same module. If yes then exit.
             if ($this->moduleComparator->isSameModule($namespaceOfCallingCode, $referencedClass)) {
                 return [];
             }
 
-            // Is this a call to code in an excluded namespace. If yes then exit.
             if ($this->excludedNamespaceChecker->isExcludedNamespace($referencedClass)) {
                 return [];
             }
 
-            // Is the code from outside the app (core or vendor)? If yes then exit.
             if (!$this->moduleComparator->isInModule($referencedClass)) {
                 return [];
             }
