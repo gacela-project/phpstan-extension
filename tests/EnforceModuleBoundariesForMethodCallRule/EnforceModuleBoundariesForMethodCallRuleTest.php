@@ -21,7 +21,8 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
             ],
             [
                 [
-                    'Method call to a different module is not allowed.', 19,
+                    'Method call to a different module is not allowed. Calling:GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Infrastructure, RefClasses:GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleB\NotAFacade',
+                    19,
                 ],
             ]
         );
