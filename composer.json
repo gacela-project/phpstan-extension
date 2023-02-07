@@ -5,7 +5,7 @@
   "license": "MIT",
   "require": {
     "php": ">=7.4, <8.3",
-    "gacela-project/gacela": ">=0.1, <1"
+    "gacela-project/gacela": ">=0.1, <2"
   },
   "require-dev": {
     "phpstan/phpstan": "^1.9",
