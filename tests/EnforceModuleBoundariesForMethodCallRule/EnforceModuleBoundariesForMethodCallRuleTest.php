@@ -24,7 +24,7 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
                     'Method call to a different module is not allowed. Calling:GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleA\Infrastructure, RefClasses:GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleB\NotAFacade',
                     19,
                 ],
-            ]
+            ],
         );
     }
 
@@ -35,7 +35,7 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
                 __DIR__ . '/Fixtures/ModuleA/Infrastructure/UpdatePersonCommand.php',
             ],
             [
-            ]
+            ],
         );
     }
 
@@ -46,7 +46,7 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
                 __DIR__ . '/Fixtures/ModuleA/Infrastructure/ArrayCommand.php',
             ],
             [
-            ]
+            ],
         );
     }
 
@@ -57,7 +57,7 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
                 __DIR__ . '/Fixtures/Tests/ModuleA/Domain/PersonTest.php',
             ],
             [
-            ]
+            ],
         );
     }
 
@@ -68,7 +68,7 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
                 __DIR__ . '/Fixtures/ModuleA/Infrastructure/PersonRepository.php',
             ],
             [
-            ]
+            ],
         );
     }
 
@@ -79,7 +79,7 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
                 __DIR__ . '/Fixtures/ModuleA/Domain/Person.php',
             ],
             [
-            ]
+            ],
         );
     }
 
@@ -90,7 +90,7 @@ class EnforceModuleBoundariesForMethodCallRuleTest extends RuleTestCase
             new ExcludedNamespaceChecker([
                 'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\Common',
                 'GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\Tests',
-            ])
+            ]),
         );
     }
 }

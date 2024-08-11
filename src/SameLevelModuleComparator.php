@@ -11,7 +11,7 @@ class SameLevelModuleComparator implements ModuleComparator
     private string $modulesNamespace;
 
     public function __construct(
-        string $modulesNamespace
+        string $modulesNamespace,
     ) {
         $this->modulesNamespace = rtrim($modulesNamespace, '\\') . '\\';
     }

@@ -11,6 +11,8 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 
+use function sprintf;
+
 /** @implements Rule<\PhpParser\Node\Expr\MethodCall> */
 final class EnforceModuleBoundariesForMethodCallRule implements Rule
 {
@@ -19,7 +21,7 @@ final class EnforceModuleBoundariesForMethodCallRule implements Rule
 
     public function __construct(
         ModuleComparator $moduleComparator,
-        ExcludedNamespaceChecker $excludedNamespaceChecker
+        ExcludedNamespaceChecker $excludedNamespaceChecker,
     ) {
         $this->moduleComparator = $moduleComparator;
         $this->excludedNamespaceChecker = $excludedNamespaceChecker;
@@ -70,7 +72,7 @@ final class EnforceModuleBoundariesForMethodCallRule implements Rule
         $message = sprintf(
             'Method call to a different module is not allowed. Calling:%s, RefClasses:%s',
             $namespaceOfCallingCode ?? 'null',
-            implode(',', $type->getReferencedClasses())
+            implode(',', $type->getReferencedClasses()),
         );
 
         return [

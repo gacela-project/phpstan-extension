@@ -102,7 +102,7 @@ class SameLevelModuleComparatorTest extends TestCase
     public function test_module_comparator_without_trailing_slash(
         ?string $namespaceA,
         ?string $namespaceB,
-        bool $expected
+        bool $expected,
     ): void {
         $moduleComparator = new SameLevelModuleComparator('App');
         $this->assertSame($expected, $moduleComparator->isSameModule($namespaceA, $namespaceB));

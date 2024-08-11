@@ -13,7 +13,7 @@ class ExcludedNamespaceChecker
      * @param list<string> $excludedNamespaces
      */
     public function __construct(
-        array $excludedNamespaces
+        array $excludedNamespaces,
     ) {
         $this->excludedNamespaces = $excludedNamespaces;
     }

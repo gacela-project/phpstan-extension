@@ -17,7 +17,7 @@ class ExcludedNamespaceCheckerTest extends TestCase
             [
                 'Gacela/Common',
                 'Gacela/Utils',
-            ]
+            ],
         );
     }
 

@@ -6,8 +6,6 @@ namespace GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodC
 
 use GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleB\ModuleBFacadeInterface;
 
-use function get_class;
-
 class Person
 {
     private ModuleBFacadeInterface $moduleBFacade;
@@ -24,6 +22,6 @@ class Person
 
     public function asString(): string
     {
-        return get_class($this);
+        return static::class;
     }
 }
