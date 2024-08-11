@@ -3,20 +3,30 @@
   "description": "PHPStan rule for projects using Gacela",
   "type": "phpstan-extension",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Jose M. Valera Reales",
+      "email": "chemaclass@outlook.es"
+    },
+    {
+      "name": "Dave Liddament",
+      "email": "dave@lampbristol.com"
+    }
+  ],
   "require": {
     "php": ">=7.4",
     "gacela-project/gacela": ">=0.1"
   },
   "require-dev": {
-    "phpstan/phpstan": "^1.9",
-    "phpunit/phpunit": "^9.5",
-    "friendsofphp/php-cs-fixer": "^3.56",
-    "vimeo/psalm": "^5.1",
+    "phpstan/phpstan": "^1.11",
+    "phpunit/phpunit": "^9.6",
+    "friendsofphp/php-cs-fixer": "^3.62",
+    "vimeo/psalm": "^5.25",
     "symfony/var-dumper": "^5.4",
-    "psalm/plugin-phpunit": "^0.18.4"
+    "psalm/plugin-phpunit": "^0.18"
   },
   "suggest": {
-    "gacela-project/gacela": "Gacela helps you separate your project into modules, focusing on the application/infrastructure layer, decoupled from your domain."
+    "gacela-project/gacela": "Gacela helps you build modular PHP applications. It helps normalizing the entry point of a module, without interfering with your domain-business logic."
   },
   "autoload": {
     "psr-4": {
@@ -28,16 +38,6 @@
       "GacelaProject\\PhpstanExtension\\Tests\\": "tests/"
     }
   },
-  "authors": [
-    {
-      "name": "Jose M. Valera Reales",
-      "email": "chemaclass@outlook.es"
-    },
-    {
-      "name": "Dave Liddament",
-      "email": "dave@lampbristol.com"
-    }
-  ],
   "scripts": {
     "ctal": [
       "@static-clear-cache",
@@ -64,5 +64,11 @@
     "phpstan": "./vendor/bin/phpstan analyze",
     "csfix": "./vendor/bin/php-cs-fixer fix",
     "csrun": "./vendor/bin/php-cs-fixer fix --dry-run"
+  },
+  "config": {
+    "platform": {
+      "php": "7.4"
+    },
+    "sort-packages": true
   }
 }

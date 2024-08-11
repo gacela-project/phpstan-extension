@@ -8,6 +8,8 @@ use GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRul
 use GacelaProject\PhpstanExtension\Tests\EnforceModuleBoundariesForMethodCallRule\Fixtures\ModuleB\ModuleBFacadeInterface;
 use PHPUnit\Framework\TestCase;
 
+use function get_class;
+
 final class PersonTest extends TestCase
 {
     public function test_something(): void
@@ -16,6 +18,6 @@ final class PersonTest extends TestCase
             $this->createStub(ModuleBFacadeInterface::class),
         );
 
-        self::assertEquals($p::class, $p->asString());
+        self::assertEquals(get_class($p), $p->asString());
     }
 }

@@ -58,6 +58,10 @@ class SameLevelModuleComparator implements ModuleComparator
     {
         $module = substr($namespace, strlen($this->modulesNamespace));
 
-        return substr($module, 0, strpos($module, '\\') ?: strlen($module));
+        if (false === ($pos = strpos($module, '\\'))) {
+            $pos = strlen($module);
+        }
+
+        return substr($module, 0, $pos);
     }
 }

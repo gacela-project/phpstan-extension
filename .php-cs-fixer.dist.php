@@ -24,7 +24,7 @@ return (new Config())
         ],
         'function_declaration' => true,
         'function_to_constant' => true,
-        'get_class_to_class_keyword' => true,
+        'get_class_to_class_keyword' => false,
         'global_namespace_import' => [
             'import_classes' => true,
             'import_constants' => true,
