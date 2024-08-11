@@ -75,5 +75,3 @@ parameters:
 ## Usage
 
 Run PHPStan as usual. It will additional point out any violations of module boundaries.
-
-

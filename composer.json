@@ -4,8 +4,8 @@
   "type": "phpstan-extension",
   "license": "MIT",
   "require": {
-    "php": ">=7.4, <8.3",
-    "gacela-project/gacela": ">=0.1, <2"
+    "php": ">=7.4",
+    "gacela-project/gacela": ">=0.1"
   },
   "require-dev": {
     "phpstan/phpstan": "^1.9",
@@ -30,7 +30,7 @@
   },
   "authors": [
     {
-      "name": "Jose Maria Valera Reales",
+      "name": "Jose M. Valera Reales",
       "email": "chemaclass@outlook.es"
     },
     {
