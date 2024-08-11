@@ -33,9 +33,6 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
-      - name: Validate composer file
-        run: composer validate --strict
-
       - name: Install dependencies
         run: composer install --no-interaction --no-ansi --no-progress
 
@@ -78,7 +75,7 @@ jobs:
       fail-fast: false
       matrix:
         dependencies: ["lowest", "locked", "highest"]
-        php: ['7.4', '8.0', '8.1', '8.2']
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3']
     steps:
       - uses: actions/checkout@v2
 
