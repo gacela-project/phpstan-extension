@@ -14,7 +14,7 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "gacela-project/gacela": ">=0.1"
   },
   "require-dev": {
@@ -67,7 +67,7 @@
   },
   "config": {
     "platform": {
-      "php": "7.4"
+      "php": "8.0"
     },
     "sort-packages": true
   }
