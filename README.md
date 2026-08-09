@@ -1,77 +1,74 @@
-# Gacela PHPStan extension
+# Gacela PHPStan extension — abandoned
 
-This is a PHPStan extension for Gacela Framework. This enforces module boundaries.
-
-See [main Gacela project](https://github.com/gacela-project/gacela) for more information.
-
-## Installation
+> **This package is abandoned. Use [`gacela-project/gacela`](https://github.com/gacela-project/gacela) instead.**
+>
+> Everything this extension did is built into the framework, and more. It is also
+> **incompatible with PHPStan 2**: it builds errors without the identifiers
+> PHPStan 2 requires, so it cannot load against the PHPStan version Gacela
+> itself needs.
 
 ```bash
-composer require --dev gacela-project/phpstan-extension
+composer remove --dev gacela-project/phpstan-extension
 ```
 
-## Configuration
+The rules now ship with Gacela, for **PHPStan and Psalm alike**, sharing one
+implementation so the two analysers cannot disagree about what counts as a
+violation. See
+[docs/static-analysis.md](https://github.com/gacela-project/gacela/blob/main/docs/static-analysis.md).
 
-To configure this PHPStan extension you need 2 things.
+## Migrating
 
-#### Base module namespace
+Replace the include:
 
-It is assumed that all your modules are under the same namespace. 
-Assume the namespaces for your modules are:
-
-- `App\Modules\ModuleA`
-- `App\Modules\ModuleB` 
-
-The base namespace for your modules is `App\Modules`.
-
-#### Excluded namespaces (Optional)
-
-If you have namespace that hold code that can be used by any module (e.g. `App\Shared`), 
-then you need to add them to `excludedNamespaces`. Default: `[]`.
-
-
-### Update PHPStan configuration
-
-Update your project's `phpstan.neon` file:
-
-```yaml
+```neon
+# before
 includes:
-  - vendor/gacela-project/phpstan-extension/extension.neon
+    - vendor/gacela-project/phpstan-extension/extension.neon
 
-parameters:
-    gacela:
-        modulesNamespace: <base module namespace>
-        excludedNamespaces:
-            - excluded
-            - namespaces
-```
-
-### Examples
-
-#### Example without excludedNamespaces
-
-```yaml
+# after
 includes:
-  - vendor/gacela-project/phpstan-extension/extension.neon
-
-parameters:
-    gacela:
-        modulesNamespace: App\Modules
+    - vendor/gacela-project/gacela/phpstan-gacela.neon
 ```
 
-#### Full example
+That include turns on the pillar rules — a `*Facade` must extend `AbstractFacade`,
+a facade method may only delegate, a factory may not reach for a Facade, a facade
+interface must stay in sync — plus real return types for the pillar accessors and
+for `getProvidedDependency(Foo::class)`. None of that existed here.
 
-```yaml
-includes:
-  - vendor/gacela-project/phpstan-extension/extension.neon
+The module-boundary check stays opt-in, because nothing in a class name says
+where a boundary falls. Its two parameters are renamed:
 
-parameters:
-    gacela:
-        modulesNamespace: App\Modules
-        excludedNamespaces: 
-            - App\Shared
+| `phpstan-extension` | Gacela |
+|---|---|
+| `parameters.gacela.modulesNamespace` | `rootNamespace` |
+| `parameters.gacela.excludedNamespaces` | `sharedNamespaces` |
+
+```neon
+services:
+    -
+        class: Gacela\PHPStan\Rules\CrossModuleViaFacadeRule
+        tags: [phpstan.rules.rule]
+        arguments:
+            rootNamespace: App\Modules
+            sharedNamespaces:
+                - App\Shared
+    -
+        class: Gacela\PHPStan\Rules\CrossModuleMethodCallRule
+        tags: [phpstan.rules.rule]
+        arguments:
+            rootNamespace: App\Modules
+            sharedNamespaces:
+                - App\Shared
 ```
 
-## Usage
+`EnforceModuleBoundariesForMethodCallRule` — the one rule this package had — is
+`CrossModuleMethodCallRule` there. The check now has a **second half**,
+`CrossModuleViaFacadeRule`, which reports the crossings a source writes by name
+(`new`, static calls, class constants). This package never covered those.
 
-Run PHPStan as usual. It will additional point out any violations of module boundaries.
+## Why it moved
+
+The rules describe Gacela's architecture and name `AbstractFacade`,
+`AbstractFactory` and the rest. Kept in their own package they fell behind the
+framework they check — which is what happened here. Shipped with it, they move in
+lockstep and run against Gacela's own source on every build.

@@ -3,6 +3,7 @@
   "description": "PHPStan rule for projects using Gacela",
   "type": "phpstan-extension",
   "license": "MIT",
+  "abandoned": "gacela-project/gacela",
   "authors": [
     {
       "name": "Jose M. Valera Reales",
